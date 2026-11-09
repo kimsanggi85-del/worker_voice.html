@@ -169,6 +169,25 @@ textarea{min-height:90px;resize:vertical}
 
 /* ===== Charts ===== */
 .chart{width:100%;height:auto;display:block}
+/* 통합 대시보드 */
+.idg{display:grid;gap:14px;grid-template-columns:repeat(12,1fr);margin-bottom:14px}.idg>.panel{margin:0;min-width:0}
+.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c8{grid-column:span 8}.c12{grid-column:span 12}
+.idsec{font-size:15px;font-weight:800;margin:20px 0 10px;display:flex;align-items:center;gap:8px}.idsec:after{content:"";flex:1;height:1px;background:var(--line)}
+.iddoc{background:#FAFBFC;border:1px solid var(--line);border-radius:8px;padding:12px;font-size:12.5px;line-height:1.6;max-height:220px;overflow:auto;white-space:pre-wrap}
+.iddoc .tt{font-weight:800;text-align:center;margin-bottom:6px;font-size:13.5px;white-space:normal}
+.iddoc .gl{background:#FFF6D6;border-radius:4px;padding:3px 8px;margin:4px 0;white-space:normal}
+.idstaff{display:grid;gap:8px}.idstaff div{display:flex;justify-content:space-between;align-items:center;background:#F6F8FA;border-radius:8px;padding:10px 12px;font-size:13px}.idstaff b{color:var(--green-d)}
+.idrow{display:grid;grid-template-columns:minmax(70px,110px) 1fr 52px 52px;gap:8px;align-items:center;font-size:12.5px;padding:5px 0;border-bottom:1px dashed #EEF1F5}
+.idrow .bar{height:10px;background:#EEF1F5;border-radius:6px;overflow:hidden}.idrow .bar i{display:block;height:100%;background:#4FC3C8;border-radius:6px}
+.idrow .n{text-align:right;font-weight:700}.idrow.h{font-weight:700;color:var(--mute);font-size:11.5px}
+.idrank{display:flex;align-items:center;gap:8px;background:#F6F8FA;border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:12.5px;cursor:default}
+.idrank .k{font-weight:800;color:var(--green-d);min-width:24px}.idrank .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.idrank .s{color:var(--bad);font-weight:700;white-space:nowrap}
+.idplace{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.idplace>div{border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:12px}
+.idplace .pn{font-weight:700;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.idplace .pr{display:flex;justify-content:space-between;color:var(--mute)}.idplace .pr b{color:var(--ink)}.idplace .pr b.bad{color:var(--bad)}
+.gauge{display:flex;flex-direction:column;align-items:center}
+.idtool select,.idtool input{width:auto!important;min-width:0}
+@media (max-width:1100px){.c3,.c4,.c5{grid-column:span 6}.c7,.c8{grid-column:span 12}}
+@media (max-width:700px){.idtool{width:100%}.idtool select{flex:1 1 100%;width:100%!important}.idtool input{flex:1}.idg{grid-template-columns:1fr}.idg>*{grid-column:auto!important}.idplace{grid-template-columns:1fr 1fr}}
 .legend{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-top:6px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
 
@@ -406,7 +425,7 @@ body.pf .prnform{display:block;padding:10mm 0}
   <h4>TBM · 문서</h4>
   <button data-p="tbm"><i>🗣️</i>TBM 일지</button><button data-p="docs"><i>🗂️</i>문서함 (내부 자료)</button>
   <h4>현황</h4>
-  <button data-p="dash"><i>📊</i>대시보드</button><button data-p="guide"><i>📚</i>법적 근거 · 절차</button>
+  <button data-p="idash"><i>🧭</i>통합 대시보드</button><button data-p="dash"><i>📊</i>대시보드</button><button data-p="guide"><i>📚</i>법적 근거 · 절차</button>
   <h4>기준정보</h4>
   <button data-p="cfg"><i>⚙️</i>설정</button>
   <div class="ver">TJ 세이프 v1.2</div>
@@ -431,7 +450,7 @@ body.pf .prnform{display:block;padding:10mm 0}
   <h4>TBM · 문서</h4>
   <button class="it" data-p="tbm">TBM 일지</button><button class="it" data-p="docs">문서함</button>
   <h4>현황</h4>
-  <button class="it" data-p="dash">대시보드</button><button class="it" data-p="guide">법적 근거 · 운영절차</button>
+  <button class="it" data-p="idash">통합 대시보드</button><button class="it" data-p="dash">대시보드</button><button class="it" data-p="guide">법적 근거 · 운영절차</button>
   <h4>기준정보</h4>
   <button class="it" data-p="cfg">설정</button>
   <div class="foot"><div id="mwho"></div></div>
@@ -621,6 +640,38 @@ body.pf .prnform{display:block;padding:10mm 0}
   <div class="panel"><h3>반기별 의견청취 실적 <span class="tag">중대재해처벌법 시행령 제4조 제7호 — 반기 1회 이상 점검</span></h3><div id="halfTbl"></div></div>
 </section>
 
+<!-- ===== 관리자 통합 대시보드 ===== -->
+<section class="page" id="pg-idash">
+  <div class="ph"><div><h2>관리자 통합 대시보드</h2><div class="sub" id="idSub"></div></div>
+    <div class="tw noprint idtool"><select id="id_per" onchange="idPer()"><option value="w">이번 주</option><option value="m" selected>이번 달</option><option value="q">이번 분기</option><option value="h">이번 반기</option><option value="y">올해</option><option value="c">직접 지정</option></select><input type="date" id="id_from" onchange="idCustom()"><span class="hint">~</span><input type="date" id="id_to" onchange="idCustom()"><button class="btn" onclick="printPage('idash')">🖨 출력</button></div></div>
+  <div class="grid g6" id="idKpi" style="margin-bottom:14px"></div>
+  <div class="idg">
+    <div class="panel c4"><h3>안전보건경영방침</h3><div id="idPol"></div></div>
+    <div class="panel c5"><h3>안전보건경영목표 <span class="tag" id="idGoalTag"></span></h3><div id="idGoal"></div></div>
+    <div class="panel c3"><h3>안전보건관리자 인원현황</h3><div id="idStaff" class="idstaff"></div></div>
+  </div>
+  <div class="idsec">🛡️ 안전관리 현황</div>
+  <div class="idg">
+    <div class="panel c7"><h3>팀별 진행현황 <span class="tag">TBM(위험예지훈련) · 의견청취 · 개선조치</span></h3><div id="idTeam"></div></div>
+    <div class="panel c5"><h3>위험예지훈련(TBM) 진행현황</h3><div id="idTbm"></div></div>
+    <div class="panel c7"><h3>일별 활동 추이 <span class="tag" id="idTrTag"></span></h3><div id="idTrend"></div></div>
+    <div class="panel c5"><h3>장소(사업장)별 진행현황</h3><div id="idPlace" class="idplace"></div></div>
+  </div>
+  <div class="idsec">⚠️ 위험 관리</div>
+  <div class="idg">
+    <div class="panel c4"><h3>고위험 리스트 TOP 5 <span class="tag">미완료 위험성평가</span></h3><div id="idHiRisk"></div></div>
+    <div class="panel c4"><h3>고위험 부서 TOP 5 <span class="tag">위험성 합계</span></h3><div id="idHiDept"></div></div>
+    <div class="panel c4"><h3>사고 · 아차사고 <span class="tag">기간 내</span></h3><div id="idAcc"></div></div>
+  </div>
+  <div class="idsec">🩺 임직원 보건관리 현황</div>
+  <div class="idg">
+    <div class="panel c4"><h3>건강진단 수검률 <span class="tag">올해</span></h3><div id="idHc"></div></div>
+    <div class="panel c4"><h3>보건관리 구분별 실시 <span class="tag">올해</span></h3><div id="idHtype"></div></div>
+    <div class="panel c4"><h3>안전보건교육 이수 <span class="tag">이번 반기</span></h3><div id="idEdu"></div></div>
+  </div>
+  <div class="note noprint" style="font-size:12px">집계 기준 — TBM 목표: 라인(소속) × 기간 내 평일 수 · 보건관리: 인원수만 집계(개인 건강정보 미저장) · 인원현황: 설정 › 안전보건 조직 인원에서 입력</div>
+</section>
+
 <!-- ===== 중처법 10대 요소 점검 ===== -->
 <section class="page" id="pg-law">
   <div class="ph"><div><h2>중대재해처벌법 대응 10대 핵심 요소 점검</h2><div class="sub" id="lawSub"></div></div><div class="tw noprint"><button class="btn" onclick="printPage('law')">🖨 점검표 출력</button></div></div>
@@ -684,6 +735,7 @@ body.pf .prnform{display:block;padding:10mm 0}
       <div><label>소속 / 라인 목록 <span class="hint">(줄바꿈 구분)</span></label><textarea id="c_depts"></textarea></div>
       <div><label>작업 장소 목록 <span class="hint">(줄바꿈 구분 · QR 라벨 기준)</span></label><textarea id="c_places"></textarea></div>
       <div><label>위험 유형 목록</label><textarea id="c_cats"></textarea></div>
+      <div><label>안전보건 조직 인원 <span class="hint">(통합 대시보드 인원현황)</span></label><div class="row" style="grid-template-columns:repeat(4,1fr)"><div><label class="hint">관리책임자</label><input type="number" min="0" id="c_st1"></div><div><label class="hint">관리감독자</label><input type="number" min="0" id="c_st2"></div><div><label class="hint">안전관리자</label><input type="number" min="0" id="c_st3"></div><div><label class="hint">보건관리자</label><input type="number" min="0" id="c_st4"></div></div></div>
       <div><label>라인별 작업자 명단 <span class="hint">(TBM 참석자 선택용 · 형식: 라인: 이름, 이름)</span></label><textarea id="c_workers" placeholder="프레스 B동: 강창구, 박종식, 김태주&#10;프레스 C동: 왕석주, 최민호"></textarea></div>
     </div></div>
     <div class="panel"><h3>알림 · AI</h3><div class="f">
@@ -948,7 +1000,7 @@ function openM(id){$(id).classList.add('on');}
 function closeM(id){$(id).classList.remove('on');}
 function renderAll(){
   if(CUR.startsWith('m_'))renderMod();else if(CUR==='law')renderLaw();
-  const f={home:renderHome,tbm:renderTbm,docs:renderDocs,reg:renderReg,board:renderBoard,inbox:renderInbox,ra:renderRa,action:renderAction,dash:renderDash,cfg:renderCfg,guide:()=>{}}[CUR];if(f)f();
+  const f={home:renderHome,tbm:renderTbm,docs:renderDocs,reg:renderReg,board:renderBoard,inbox:renderInbox,ra:renderRa,action:renderAction,dash:renderDash,idash:renderIdash,cfg:renderCfg,guide:()=>{}}[CUR];if(f)f();
   const tb=$('tabBdg');if(tb){const n=S.ops.filter(o=>o.status==='접수').length;tb.textContent=n;tb.classList.toggle('hide',!n);}
 }
 
@@ -1389,17 +1441,89 @@ function renderDash(){
 }
 
 
+/* ---------- 관리자 통합 대시보드 ---------- */
+function idRange(){
+  const v=$('id_per').value,d=new Date(),Y=d.getFullYear(),M=d.getMonth();let f,t=new Date(Y,M,d.getDate());
+  if(v==='c'){return{f:$('id_from').value||fmtD(now()),t:$('id_to').value||fmtD(now())};}
+  if(v==='w'){const k=(d.getDay()+6)%7;f=new Date(Y,M,d.getDate()-k);t=new Date(Y,M,d.getDate()-k+6);}
+  else if(v==='m'){f=new Date(Y,M,1);t=new Date(Y,M+1,0);}
+  else if(v==='q'){f=new Date(Y,Math.floor(M/3)*3,1);t=new Date(Y,Math.floor(M/3)*3+3,0);}
+  else if(v==='h'){f=new Date(Y,M<6?0:6,1);t=new Date(Y,M<6?6:12,0);}
+  else{f=new Date(Y,0,1);t=new Date(Y,11,31);}
+  return{f:fmtD(f.getTime()),t:fmtD(t.getTime())};
+}
+function idPer(){const r=idRange();$('id_from').value=r.f;$('id_to').value=r.t;renderIdash();}
+function idCustom(){$('id_per').value='c';renderIdash();}
+function gauge(val,tot,label,color){
+  const p=tot?Math.min(1,val/tot):0,R=70,L=Math.PI*R;
+  return`<div class="gauge"><svg viewBox="0 0 180 104" style="width:200px;max-width:100%"><path d="M20 94 A70 70 0 0 1 160 94" fill="none" stroke="#EEF1F5" stroke-width="16" stroke-linecap="round"/><path d="M20 94 A70 70 0 0 1 160 94" fill="none" stroke="${color||'var(--green)'}" stroke-width="16" stroke-linecap="round" stroke-dasharray="${L*p} ${L}"/><text x="90" y="70" text-anchor="middle" font-size="12" fill="#5F6B7A">${esc(label||'')}</text><text x="90" y="92" text-anchor="middle" font-size="20" font-weight="800" fill="#1F2933">${val} <tspan font-size="12" font-weight="600" fill="#5F6B7A">/ ${tot}</tspan></text></svg><div style="font-weight:800;color:var(--green-d);margin-top:-2px">${tot?Math.round(p*100):0}%</div></div>`;
+}
+function renderIdash(){
+  if(!$('id_from').value){const r0=idRange();$('id_from').value=r0.f;$('id_to').value=r0.t;}
+  const R={f:$('id_from').value,t:$('id_to').value},td=fmtD(now());
+  const inD=ds=>ds&&ds>=R.f&&ds<=R.t, inT=ts=>inD(fmtD(ts));
+  const ops=S.ops.filter(o=>inT(o.ts)),tbms=S.tbms.filter(x=>inD(x.date)),ras=S.ras;
+  const days=[];for(let d=new Date(R.f);fmtD(d.getTime())<=R.t&&days.length<400;d.setDate(d.getDate()+1))days.push(fmtD(d.getTime()));
+  const work=days.filter(x=>{const w=new Date(x).getDay();return w&&w<6;}).filter(x=>x<=td).length;
+  const depts=S.cfg.depts.filter(x=>!/사무|협력/.test(x));
+  const openRa=ras.filter(r=>r.status!=='완료'),lateRa=openRa.filter(r=>r.due&&r.due<td);
+  const accs=mrecs('acc').filter(r=>inD(r.date)),edus=mrecs('edu').filter(r=>inD(r.date));
+  $('idSub').textContent=`${S.cfg.company} · 조회기간 ${R.f} ~ ${R.t} · 기준일 ${td}`;
+  const doneOps=ops.filter(o=>o.status==='조치완료'||o.status==='반려').length;
+  $('idKpi').innerHTML=[['TBM 실시',tbms.length+'<small>회</small>','green'],['TBM 참석 연인원',tbms.reduce((a,x)=>a+(x.att||[]).length,0)+'<small>명</small>','blue'],['의견청취 접수',ops.length+'<small>건</small>',''],['처리율',(ops.length?Math.round(doneOps/ops.length*100):0)+'<small>%</small>','green'],['개선조치 진행 / 지연',openRa.length+'<small>/ '+lateRa.length+'건</small>',lateRa.length?'red':'amber'],['사고·아차사고',accs.length+'<small>건</small>',accs.some(r=>/휴업|중대/.test(r.type))?'red':'amber']].map(k=>`<div class="kpi ${k[2]}"><div class="l">${k[0]}</div><div class="v">${k[1]}</div></div>`).join('');
+  // 방침·목표
+  const pol=mrecs('pol').sort((a,b)=>(b.date||'').localeCompare(a.date||''))[0];
+  $('idPol').innerHTML=pol?`<div class="iddoc"><div class="tt">${esc(S.cfg.company)} 안전보건경영방침</div>${esc(pol.policy||'')}${pol.by?`<div style="text-align:right;margin-top:6px;font-weight:700">${esc(pol.by)}</div>`:''}</div>`:`<div class="hint">등록된 방침이 없습니다. <a href="#" onclick="go('m_pol');return false">방침·목표 등록 →</a></div>`;
+  $('idGoalTag').textContent=pol?(pol.year||'')+'년':'';
+  const goals=pol?(pol.goal||'').split('\n').map(x=>x.trim()).filter(Boolean):[];
+  $('idGoal').innerHTML=pol?`<div class="iddoc"><div class="tt" style="color:var(--bad)">중대재해 ZERO! 위험요인 발굴·제거</div>${goals.map(g=>`<div class="gl">✔ ${esc(g)}</div>`).join('')||'<span class="hint">목표 미입력</span>'}${pol.budget?`<div style="margin-top:6px"><b>예산</b> ${esc(pol.budget)}</div>`:''}</div>`:'<div class="hint">등록된 목표가 없습니다.</div>';
+  const st=S.cfg.staff||[];
+  $('idStaff').innerHTML=['관리책임자','관리감독자','안전관리자','보건관리자'].map((l,i)=>`<div><span>${l}</span><b>👤 ${st[i]===''||st[i]==null?'-':st[i]}명</b></div>`).join('')+(st.some(x=>x!==''&&x!=null)?'':`<span class="hint" style="font-size:11.5px">설정에서 인원 입력</span>`);
+  // 팀별
+  const tRows=depts.map(d=>{const n=tbms.filter(x=>x.dept===d).length,o=ops.filter(x=>x.dept===d).length,op=S.ops.filter(x=>x.dept===d&&['접수','검토중','평가반영'].includes(x.status)).length;return{d,n,o,op,r:work?n/work:0};});
+  $('idTeam').innerHTML=`<div class="idrow h"><span>소속 · 라인</span><span>TBM 실시 (실시 / 평일 ${work}일)</span><span class="n">의견</span><span class="n">미결</span></div>`+tRows.map(x=>`<div class="idrow"><span style="font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(x.d)}</span><span style="display:flex;align-items:center;gap:6px"><span class="bar" style="flex:1"><i style="width:${Math.min(100,Math.round(x.r*100))}%;background:${x.r>=.9?'#1DA462':x.r>=.5?'#4FC3C8':'#F08A24'}"></i></span><span class="hint" style="min-width:52px;text-align:right">${x.n}회 / ${work}</span></span><span class="n">${x.o}건</span><span class="n" style="color:${x.op?'var(--bad)':'inherit'}">${x.op}건</span></div>`).join('');
+  // TBM 게이지 + 집중관리 TOP3
+  const tgt=work*depts.length,done=tRows.reduce((a,x)=>a+Math.min(x.n,work),0);
+  const focus=[...tRows].map(x=>({...x,miss:Math.max(0,work-x.n)})).filter(x=>x.miss>0||x.op>0).sort((a,b)=>b.miss-a.miss||b.op-a.op).slice(0,3);
+  $('idTbm').innerHTML=gauge(done,tgt,'전체','#1DA462')+`<div class="legend" style="justify-content:center"><span><i style="background:#1DA462"></i>진행 ${done}회</span><span><i style="background:#EEF1F5"></i>미진행 ${Math.max(0,tgt-done)}회</span></div><div style="font-weight:800;font-size:13px;margin:12px 0 6px">관리 집중 부서 <span style="color:var(--bad)">TOP 3</span></div>`+(focus.map((x,i)=>`<div class="idrank"><span class="k">${i+1}위</span><span class="t">${esc(x.d)}</span><span class="s">TBM 미실시 ${x.miss}일${x.op?' · 미결 '+x.op:''}</span></div>`).join('')||'<div class="hint">집중 관리 대상 없음 👍</div>');
+  // 추이
+  const dd=days.length>62?null:days;$('idTrTag').textContent=dd?'일별':'월별';
+  let labels,keyOf;if(dd){labels=dd.map(x=>+x.slice(5,7)+'/'+ +x.slice(8));keyOf=x=>x;}else{const ms=[...new Set(days.map(x=>x.slice(0,7)))];labels=ms.map(x=>+x.slice(5)+'월');keyOf=x=>x.slice(0,7);}
+  const keys=dd||[...new Set(days.map(x=>x.slice(0,7)))];const cntBy=(arr,f)=>keys.map(k=>arr.filter(x=>keyOf(f(x)||'')===k).length);
+  const step=Math.ceil(labels.length/12);
+  $('idTrend').innerHTML=lineChart(labels.map((l,i)=>i%step?'':l),[{n:'TBM',c:'#1DA462',v:cntBy(tbms,x=>x.date)},{n:'의견 접수',c:'#F08A24',v:cntBy(ops,x=>fmtD(x.ts))},{n:'조치완료',c:'#5D3FA3',v:cntBy(S.ops.filter(o=>o.done_at&&inT(o.done_at)),x=>fmtD(x.done_at))}]);
+  // 장소별
+  const places=S.cfg.places.filter(p=>!p.startsWith('기타'));
+  $('idPlace').innerHTML=places.map(p=>{const t=tbms.filter(x=>x.place===p).length,o=ops.filter(x=>x.place===p).length,r=openRa.filter(x=>x.place===p).length;return`<div><div class="pn" title="${esc(p)}">${esc(p)}</div><div class="pr"><span>TBM</span><b>${t}회</b></div><div class="pr"><span>의견청취</span><b>${o}건</b></div><div class="pr"><span>└ 미결 조치</span><b class="${r?'bad':''}">${r}건</b></div></div>`;}).join('');
+  // 고위험
+  const hi=[...openRa].sort((a,b)=>(b.risk||0)-(a.risk||0)).slice(0,5);
+  $('idHiRisk').innerHTML=hi.map((r,i)=>`<div class="idrank" style="cursor:pointer" onclick="openRa('${r.id}')"><span class="k">${i+1}위</span><span class="t" title="${esc(r.hz)}">${esc(r.hz)}</span><span class="s">점수 ${r.risk}</span></div>`).join('')||'<div class="hint">미완료 고위험 항목 없음</div>';
+  const dm={};openRa.forEach(r=>{const o=S.ops.find(x=>(r.op_ids||[]).includes(x.id));const k=o?o.dept:r.place||'미지정';dm[k]=dm[k]||{v:0,n:0};dm[k].v+=r.risk||0;dm[k].n++;});
+  $('idHiDept').innerHTML=Object.entries(dm).sort((a,b)=>b[1].v-a[1].v).slice(0,5).map(([k,v],i)=>`<div class="idrank"><span class="k">${i+1}위</span><span class="t">${esc(k)}</span><span class="s">점수 ${v.v} · ${v.n}건</span></div>`).join('')||'<div class="hint">해당 없음</div>';
+  const at={};accs.forEach(r=>at[r.type]=(at[r.type]||0)+1);
+  const accOpen=mrecs('acc').filter(r=>r.st!=='완료');
+  $('idAcc').innerHTML=barChart(Object.entries(at).map(([l,v])=>({l,v})).sort((a,b)=>b.v-a.v),'#C0392B')+`<div class="hint" style="margin-top:6px">재발방지 대책 미완료 ${accOpen.length}건${accOpen.filter(r=>r.due&&r.due<td).length?` · <b style="color:var(--bad)">기한 초과 ${accOpen.filter(r=>r.due&&r.due<td).length}건</b>`:''}</div>`;
+  // 보건
+  const hy=mrecs('hlth').filter(r=>(r.date||'')>=yStart());
+  const hc=hy.filter(r=>/건강진단/.test(r.type));const ht=hc.reduce((a,r)=>a+(+r.target||0),0),hd=hc.reduce((a,r)=>a+(+r.done||0),0),fu=hy.reduce((a,r)=>a+(+r.fu||0),0);
+  $('idHc').innerHTML=gauge(hd,ht,'실시 / 대상(명)','#00C27A')+`<div class="legend" style="justify-content:center"><span><i style="background:#00C27A"></i>수검 ${hd}명</span><span><i style="background:#F08A24"></i>사후관리 필요 ${fu}명</span></div>`;
+  const hm={};hy.forEach(r=>{hm[r.type]=hm[r.type]||{n:0,d:0,t:0};hm[r.type].n++;hm[r.type].d+=+r.done||0;hm[r.type].t+=+r.target||0;});
+  $('idHtype').innerHTML=Object.entries(hm).map(([k,v])=>`<div class="idrank"><span class="t"><b>${esc(k)}</b></span><span class="hint">${v.n}회</span><span style="font-weight:700;color:var(--green-d)">${v.t?Math.round(v.d/v.t*100)+'%':v.d+'명'}</span></div>`).join('')||`<div class="hint">올해 보건관리 기록 없음. <a href="#" onclick="go('m_hlth');return false">보건관리 등록 →</a></div>`;
+  const eh=mrecs('edu').filter(r=>(r.date||'')>=hStart());const hrs=eh.reduce((a,r)=>a+(+r.hours||0),0),att=eh.reduce((a,r)=>a+(r.att||[]).length,0),tg=eh.reduce((a,r)=>a+(+r.target||0),0);
+  $('idEdu').innerHTML=gauge(att,tg||att,'참석 / 대상(연인원)','#2F6FB7')+`<div class="legend" style="justify-content:center"><span>교육 ${eh.length}회</span><span>총 ${hrs}시간</span><span class="hint">생산직 정기교육 반기 12h</span></div>`;
+}
+
 /* ---------- 설정 ---------- */
 function renderCfg(){
   const c=S.cfg;$('c_company').value=c.company;$('c_form').value=c.form||'';$('c_wxName').value=c.wxName||'';$('c_wxPos').value=c.wxPos||'';$('c_depts').value=c.depts.join('\n');$('c_places').value=c.places.join('\n');$('c_cats').value=c.cats.join('\n');
-  $('c_workers').value=Object.entries(c.workers||{}).map(([d,a])=>d+': '+a.join(', ')).join('\n');$('c_ntfy').value=c.ntfy;$('c_ntfyOn').value=c.ntfyOn?'1':'0';$('c_aiUrl').value=c.aiUrl||'';$('c_aiKey').value=c.aiKey||'';
+  ['c_st1','c_st2','c_st3','c_st4'].forEach((k,i)=>$(k).value=(c.staff||[])[i]??'');$('c_workers').value=Object.entries(c.workers||{}).map(([d,a])=>d+': '+a.join(', ')).join('\n');$('c_ntfy').value=c.ntfy;$('c_ntfyOn').value=c.ntfyOn?'1':'0';$('c_aiUrl').value=c.aiUrl||'';$('c_aiKey').value=c.aiKey||'';
   const sz=Math.round((localStorage.getItem(LS_KEY)||'').length/1024);
   $('dataInfo').innerHTML=`<details><summary style="cursor:pointer">문서함 저장소 권한 SQL (Supabase SQL Editor에서 1회 실행)</summary><pre style="font-size:11px;white-space:pre-wrap;background:#F6F8FA;padding:8px;border-radius:6px">create policy "tj_safe read" on storage.objects for select to anon, authenticated using (bucket_id = '${ST_BUCKET}' and (storage.foldername(name))[1] = '${ST_DIR}');\ncreate policy "tj_safe insert" on storage.objects for insert to anon, authenticated with check (bucket_id = '${ST_BUCKET}' and (storage.foldername(name))[1] = '${ST_DIR}');\ncreate policy "tj_safe update" on storage.objects for update to anon, authenticated using (bucket_id = '${ST_BUCKET}' and (storage.foldername(name))[1] = '${ST_DIR}');\ncreate policy "tj_safe delete" on storage.objects for delete to anon, authenticated using (bucket_id = '${ST_BUCKET}' and (storage.foldername(name))[1] = '${ST_DIR}');</pre></details>`+`의견 ${S.ops.length}건 · 위험성평가 ${S.ras.length}건 · 문서 ${S.docs.length}건 · 로컬 데이터 ${sz}KB · 기기ID ${DEV} · 앱 ${APP_VER} · kv_store 키 ${KV_KEY}`;
 }
 function saveCfg(){
   const lines=id=>$(id).value.split('\n').map(s=>s.trim()).filter(Boolean);
   let places=lines('c_places');if(!places.some(p=>p.startsWith('기타')))places.push('기타(직접입력)');
-  S.cfg={company:$('c_company').value.trim()||'태진다이텍',form:$('c_form').value.trim(),wxName:$('c_wxName').value.trim(),wxPos:$('c_wxPos').value.replace(/\s/g,''),depts:lines('c_depts'),places,cats:lines('c_cats'),workers:(()=>{const w={};lines('c_workers').forEach(l=>{const i=l.indexOf(':');if(i<0)return;const d=l.slice(0,i).trim();w[d]=l.slice(i+1).split(/[,、]/).map(x=>x.trim()).filter(Boolean);});return w;})(),ntfy:$('c_ntfy').value.trim(),ntfyOn:$('c_ntfyOn').value==='1',aiUrl:$('c_aiUrl').value.trim(),aiKey:$('c_aiKey').value.trim()};
+  S.cfg={company:$('c_company').value.trim()||'태진다이텍',form:$('c_form').value.trim(),wxName:$('c_wxName').value.trim(),wxPos:$('c_wxPos').value.replace(/\s/g,''),depts:lines('c_depts'),places,cats:lines('c_cats'),workers:(()=>{const w={};lines('c_workers').forEach(l=>{const i=l.indexOf(':');if(i<0)return;const d=l.slice(0,i).trim();w[d]=l.slice(i+1).split(/[,、]/).map(x=>x.trim()).filter(Boolean);});return w;})(),ntfy:$('c_ntfy').value.trim(),ntfyOn:$('c_ntfyOn').value==='1',aiUrl:$('c_aiUrl').value.trim(),aiKey:$('c_aiKey').value.trim(),staff:['c_st1','c_st2','c_st3','c_st4'].map(k=>$(k).value===''?'':+$(k).value)};
   S.cfgAt=now();WXT=0;save();fillSelects();toast('설정 저장 · 전 기기 반영');
 }
 function backup(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,1)],{type:'application/json'}));a.download=`청취조사표_백업_${fmtD(now())}.json`;a.click();}
@@ -1446,7 +1570,7 @@ const MODS={
     f:[['name','업체명','text',1],['work','도급·용역·위탁 내용','text',1,'예) 금형 수리, 설비 보전, 지게차 정비, 청소'],['from','계약 시작','date'],['to','계약 종료','date'],['date','평가일','date',1],['score','안전보건 평가 점수','num'],['judge','판정','sel',0,['평가 전','적격','조건부 적격','부적격']],['chk','확인 서류','area',0,'안전보건관리계획서 · 위험성평가서 · 교육 실시 기록 · 산재보험 · 자격/면허'],['patrol','순회점검·협의체 실시 내역','area'],['note','비고','area']],
     title:r=>`${r.name} — ${r.work||''}`,meta:r=>`계약 ${r.from||'-'} ~ ${r.to||'-'}${r.score?' · '+r.score+'점':''}`,tag:r=>r.judge},
   hlth:{t:'근로자 보건관리',ic:'🩺',no:'HL',law:'산안법 제125조(작업환경측정) · 제129~130조(일반·특수건강진단) · 제132조(사후관리) · 중대재해처벌법 시행령 제5조',sub:'건강진단·작업환경측정 실시 현황과 사후관리 — 인원수만 기록 (개인 건강정보·실명 입력 금지)',
-    f:[['date','실시일','date',1],['type','구분','sel',1,['일반건강진단','특수건강진단','배치전건강진단','작업환경측정','근골격계 유해요인조사','뇌심혈관 고위험군 관리','기타 보건관리']],['org','실시 기관','text'],['target','대상 인원','num'],['done','실시 인원','num'],['fu','사후관리 필요 인원','num'],['action','사후관리·조치 내용','area',0,'개인을 특정하는 건강정보는 적지 마세요. 예) 소음 노출 공정 청력보호구 교체, 작업전환 1건'],['next','차기 예정일','date']],
+    f:[['date','실시일','date',1],['type','구분','sel',1,['일반건강진단','특수건강진단','배치전건강진단','작업환경측정','근골격계 유해요인조사','직무스트레스 평가','뇌심혈관 고위험군 관리','기타 보건관리']],['org','실시 기관','text'],['target','대상 인원','num'],['done','실시 인원','num'],['fu','사후관리 필요 인원','num'],['action','사후관리·조치 내용','area',0,'개인을 특정하는 건강정보는 적지 마세요. 예) 소음 노출 공정 청력보호구 교체, 작업전환 1건'],['next','차기 예정일','date']],
     title:r=>r.type,meta:r=>`${r.org||'-'} · 실시 ${r.done||0}/${r.target||0}명 · 사후관리 ${r.fu||0}명${r.next?' · 차기 '+r.next:''}`},
   acc:{t:'사고·아차사고 대응',ic:'🚨',no:'AC',law:'중대재해처벌법 제4조 제1항 제2호(재발방지 대책) · 시행령 제4조 제8호(대응 매뉴얼) · 산안법 제54조·제57조(산업재해조사표: 사망·휴업 3일 이상 1개월 내 제출)',sub:'발생 보고 → 원인 조사 → 재발방지 대책 → 위험성평가(수시) 반영',ph:1,
     f:[['date','발생일','date',1],['time','발생 시각','text',0,'예) 14:30'],['type','구분','sel',1,['아차사고','응급처치','휴업 재해(3일 미만)','휴업 재해(3일 이상)','중대재해']],['place','발생 장소','text',1],['dept','소속 라인','text'],['desc','발생 개요','area',1,'언제·어디서·어떤 작업 중·어떻게'],['cause','원인 (직접·근본)','area'],['action','즉시 조치','area',0,'작업중지 · 대피 · 구호 · 보고'],['plan','재발방지 대책','area'],['owner','담당','text'],['due','완료 기한','date'],['st','상태','sel',0,['조사중','대책 수립','이행 중','완료']],['report','산업재해조사표','sel',0,['해당없음','제출 예정','제출 완료']],['ref','연계 위험성평가 번호','text',0,'예) RA-2026-003']],
