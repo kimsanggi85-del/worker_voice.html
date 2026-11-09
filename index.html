@@ -970,7 +970,7 @@ function init(){
   document.querySelectorAll('[data-p]').forEach(b=>b.addEventListener('click',()=>{go(b.dataset.p);mnav(false);}));
   $('r_cat').addEventListener('change',()=>{$('r_cat').dataset.manual='1';});
   whoBar();
-  go(WORKER?'reg':'home');
+  const pg0=q.get('pg');go(WORKER?'reg':(pg0&&($('pg-'+pg0)||(pg0.startsWith('m_')&&MODS[pg0.slice(2)]))?pg0:'home'));
   syncNow(false);
   setInterval(()=>syncNow(false),60000);
   tick();setInterval(tick,1000);
